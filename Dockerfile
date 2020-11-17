@@ -19,7 +19,7 @@ RUN DEBIAN_FRONTEND=noninteractive && \
 ## installing E2guardian
 RUN wget https://e2guardian.numsys.eu/v5.5.dev/e2debian_buster_V5.5.1_20201116.deb && \
     dpkg -i e2debian_buster_V5.5.1_20201116.deb && \
-    sudo apt-get -f install
+    apt-get -f install
 
 ADD ./config /config && \
      mv /config/starter.sh /usr/bin/
