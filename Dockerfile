@@ -16,12 +16,11 @@ RUN DEBIAN_FRONTEND=noninteractive && \
     apt-get -o Acquire::GzipIndexes=false update && apt-get install webmin squid nginx libevent-core-2.1-6 libevent-pthreads-2.1-6 libtommath1 -y && \
     echo root:webmin | chpasswd
 
+ADD ./config /config
 ## installing E2guardian
 RUN wget https://e2guardian.numsys.eu/v5.5.dev/e2debian_buster_V5.5.1_20201116.deb && \
     dpkg -i e2debian_buster_V5.5.1_20201116.deb && \
-    apt-get -f install
-
-ADD ./config /config && \
+    apt-get -f install && \
      mv /config/starter.sh /usr/bin/
 #     # mv /config/rs-nginx.conf /etc/nginx/conf.d/ && \
 #     rm -r /config
