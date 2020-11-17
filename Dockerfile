@@ -1,4 +1,4 @@
-FROM buster-slim
+FROM debian:buster-slim
 LABEL maintainer="Michael Fayez <michaeleino@hotmail.com>"
 ARG WEBMINVER=1.962
 
@@ -23,7 +23,7 @@ RUN wget https://e2guardian.numsys.eu/v5.5.dev/e2debian_buster_V5.5.1_20201116.d
     sudo apt-get -f install
 
 ADD ./config /config && \
-     mv /config/starter.sh /usr/bin/ && \
+     mv /config/starter.sh /usr/bin/
 #     # mv /config/rs-nginx.conf /etc/nginx/conf.d/ && \
 #     rm -r /config
 
