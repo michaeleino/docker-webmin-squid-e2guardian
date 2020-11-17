@@ -6,15 +6,14 @@ ARG WEBMINVER=1.962
 
 RUN DEBIAN_FRONTEND=noninteractive && \
     rm /etc/apt/apt.conf.d/docker-gzip-indexes && \
-    rm /var/lib/apt/lists/*lz4 && \
     apt-get -o Acquire::GzipIndexes=false update && apt-get upgrade -y && \
-    apt install wget gnupg && \
+    apt install wget gnupg -y && \
     echo "deb https://download.webmin.com/download/repository sarge contrib" >> /etc/apt/sources.list && \
     cd /root && \
     wget http://www.webmin.com/jcameron-key.asc && \
     apt-key add jcameron-key.asc && rm jcameron-key.asc && \
 ## installing Webmin Squid Nginx
-    apt-get install webmin squid nginx libevent-core-2.1-6 libevent-pthreads-2.1-6 libtommath1 -y && \
+    apt-get -o Acquire::GzipIndexes=false update && apt-get install webmin squid nginx libevent-core-2.1-6 libevent-pthreads-2.1-6 libtommath1 -y && \
     echo root:webmin | chpasswd
 
 ## installing E2guardian
