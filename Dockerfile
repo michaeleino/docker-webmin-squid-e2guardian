@@ -26,7 +26,7 @@ RUN wget https://e2guardian.numsys.eu/v5.5.dev/e2debian_buster_V5.5.1_20201116.d
 #     rm -r /config
 
 VOLUME ["/var/www/html"]
-VOLUME ["/etc/squid/squid.conf"]
+# VOLUME ["/etc/squid/squid.conf"]
 VOLUME ["/var/log/"]
 EXPOSE 80
 EXPOSE 3128
