@@ -20,7 +20,7 @@ RUN cd /tmp && \
     wget https://github.com/michaeleino/debian-squid4-ssl/archive/master.zip && \
     unzip master.zip && \
     cd debian-squid4-ssl-master && \
-    install-squid-with-ssl-support.sh 
+    install-squid-with-ssl-support.sh
 
 
 ADD ./config /config
@@ -29,7 +29,7 @@ RUN wget https://e2guardian.numsys.eu/v5.5.dev/e2debian_buster_V5.5.1_20201116.d
     dpkg -i e2debian_buster_V5.5.1_20201116.deb && \
     apt-get -f install && \
     rm e2debian_buster_V5.5.1_20201116.deb && \
-    apt remove patch
+    apt remove patch && \
     apt purge exim4-* -y && apt autoremove -y && \
     mv /config/starter.sh /usr/bin/ &&\
     sed -i '1idaemon off;' /etc/nginx/nginx.conf && \
