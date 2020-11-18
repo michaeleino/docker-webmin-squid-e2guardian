@@ -29,6 +29,9 @@ RUN wget https://e2guardian.numsys.eu/v5.5.dev/e2debian_buster_V5.5.1_20201116.d
     sed -i 's/squid3/squid/g' /etc/webmin/squid/config && \
     wget https://master.dl.sourceforge.net/project/dgwebminmodule/dgwebmin-stable/0.7/dgwebmin-0.7.1.wbm && \
     /usr/share/webmin/install-module.pl dgwebmin-0.7.1.wbm && \
+    sed -i 's/dansguardian/e2guardian/g' /etc/webmin/dansguardian/config && \
+    sed -i 's/sbin/usr\/sbin/g' /etc/webmin/dansguardian/config && \
+    ln -s /etc/e2guardian/{e2guardian.conf,dansguardian} && \
     rm dgwebmin-0.7.1.wbm
 
 #     # mv /config/rs-nginx.conf /etc/nginx/conf.d/ && \
