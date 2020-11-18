@@ -1,7 +1,9 @@
 FROM debian:buster-slim
 LABEL maintainer="Michael Fayez <michaeleino@hotmail.com>"
 ARG WEBMINVER=1.962
-
+ENV HTTP_PROXY="http://172.16.1.1:3128"
+ENV HTTPS_PROXY="http://172.16.1.1:3128"
+ENV FTP_PROXY="http://172.16.1.1:3128"	
 
 
 RUN DEBIAN_FRONTEND=noninteractive && \
@@ -29,7 +31,7 @@ RUN wget https://e2guardian.numsys.eu/v5.5.dev/e2debian_buster_V5.5.1_20201116.d
     dpkg -i e2debian_buster_V5.5.1_20201116.deb && \
     apt-get -f install && \
     rm e2debian_buster_V5.5.1_20201116.deb && \
-    apt remove patch && \
+    # apt remove patch && \
     apt purge exim4-* -y && apt autoremove -y && \
     mv /config/starter.sh /usr/bin/ &&\
     sed -i '1idaemon off;' /etc/nginx/nginx.conf && \
