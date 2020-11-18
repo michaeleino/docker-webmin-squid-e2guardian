@@ -3,7 +3,7 @@ LABEL maintainer="Michael Fayez <michaeleino@hotmail.com>"
 ARG WEBMINVER=1.962
 ENV HTTP_PROXY="http://172.16.1.1:3128"
 ENV HTTPS_PROXY="http://172.16.1.1:3128"
-ENV FTP_PROXY="http://172.16.1.1:3128"	
+ENV FTP_PROXY="http://172.16.1.1:3128"
 
 
 RUN DEBIAN_FRONTEND=noninteractive && \
@@ -18,14 +18,11 @@ RUN DEBIAN_FRONTEND=noninteractive && \
     apt-get -o Acquire::GzipIndexes=false update && apt-get install patch webmin nginx libevent-core-2.1-6 libevent-pthreads-2.1-6 libtommath1 -y && \
     echo root:webmin | chpasswd
 
-RUN cd /tmp && \
-    wget https://github.com/michaeleino/debian-squid4-ssl/archive/master.zip && \
-    unzip master.zip && \
-    cd debian-squid4-ssl-master && \
-    install-squid-with-ssl-support.sh
-
-
 ADD ./config /config
+
+RUN sh /config/install-squid-with-ssl-support.sh
+
+
 ## installing E2guardian
 RUN wget https://e2guardian.numsys.eu/v5.5.dev/e2debian_buster_V5.5.1_20201116.deb && \
     dpkg -i e2debian_buster_V5.5.1_20201116.deb && \
