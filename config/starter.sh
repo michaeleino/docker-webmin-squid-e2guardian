@@ -2,7 +2,8 @@
 service webmin start
 service squid start
 service nginx start
-service e2guardian start
+
+exec e2guardian -N
 # service cron start
 
 while true
