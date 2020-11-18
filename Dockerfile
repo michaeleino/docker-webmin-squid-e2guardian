@@ -13,8 +13,15 @@ RUN DEBIAN_FRONTEND=noninteractive && \
     wget http://www.webmin.com/jcameron-key.asc && \
     apt-key add jcameron-key.asc && rm jcameron-key.asc && \
 ## installing Webmin Squid Nginx
-    apt-get -o Acquire::GzipIndexes=false update && apt-get install webmin squid nginx libevent-core-2.1-6 libevent-pthreads-2.1-6 libtommath1 -y && \
+    apt-get -o Acquire::GzipIndexes=false update && apt-get install patch webmin nginx libevent-core-2.1-6 libevent-pthreads-2.1-6 libtommath1 -y && \
     echo root:webmin | chpasswd
+
+RUN cd /tmp && \
+    wget https://github.com/michaeleino/debian-squid4-ssl/archive/master.zip && \
+    unzip master.zip && \
+    cd debian-squid4-ssl-master && \
+    install-squid-with-ssl-support.sh 
+
 
 ADD ./config /config
 ## installing E2guardian
@@ -22,6 +29,7 @@ RUN wget https://e2guardian.numsys.eu/v5.5.dev/e2debian_buster_V5.5.1_20201116.d
     dpkg -i e2debian_buster_V5.5.1_20201116.deb && \
     apt-get -f install && \
     rm e2debian_buster_V5.5.1_20201116.deb && \
+    apt remove patch
     apt purge exim4-* -y && apt autoremove -y && \
     mv /config/starter.sh /usr/bin/ &&\
     sed -i '1idaemon off;' /etc/nginx/nginx.conf && \
