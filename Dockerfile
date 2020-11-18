@@ -31,7 +31,7 @@ RUN wget https://e2guardian.numsys.eu/v5.5.dev/e2debian_buster_V5.5.1_20201116.d
     /usr/share/webmin/install-module.pl dgwebmin-0.7.1.wbm && \
     sed -i 's/dansguardian/e2guardian/g' /etc/webmin/dansguardian/config && \
     sed -i 's/sbin/usr\/sbin/g' /etc/webmin/dansguardian/config && \
-    ln -s /etc/e2guardian/{e2guardian.conf,dansguardian.conf} && \
+    ln -s /etc/e2guardian/{e2guardian,dansguardian}.conf && \
     rm dgwebmin-0.7.1.wbm
 
 #     # mv /config/rs-nginx.conf /etc/nginx/conf.d/ && \
