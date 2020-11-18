@@ -24,7 +24,8 @@ RUN wget https://e2guardian.numsys.eu/v5.5.dev/e2debian_buster_V5.5.1_20201116.d
     apt purge exim4-* -y && apt autoremove -y && \
     mv /config/starter.sh /usr/bin/ &&\
     sed -i '1idaemon off;' /etc/nginx/nginx.conf && \
-    sed -i 's/-sYC/-sYCNd 1/g' /etc/systemd/system/multi-user.target.wants/squid.service
+    sed -i 's/-sYC/-sYCNd 1/g' /etc/systemd/system/multi-user.target.wants/squid.service && \
+    sed -i 's/squid3/squid/g' /etc/webmin/squid/config
 #     # mv /config/rs-nginx.conf /etc/nginx/conf.d/ && \
 #     rm -r /config
 
