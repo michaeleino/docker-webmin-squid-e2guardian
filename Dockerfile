@@ -1,9 +1,7 @@
 FROM debian:buster-slim
 LABEL maintainer="Michael Fayez <michaeleino@hotmail.com>"
 ARG WEBMINVER=1.962
-ENV HTTP_PROXY="http://172.16.1.1:3128"
-ENV HTTPS_PROXY="http://172.16.1.1:3128"
-ENV FTP_PROXY="http://172.16.1.1:3128"
+
 
 
 RUN DEBIAN_FRONTEND=noninteractive && \
@@ -16,6 +14,10 @@ RUN DEBIAN_FRONTEND=noninteractive && \
     apt-key add jcameron-key.asc && rm jcameron-key.asc && \
 ## installing Webmin Squid Nginx
     apt-get -o Acquire::GzipIndexes=false update && apt-get install patch webmin nginx libevent-core-2.1-6 libevent-pthreads-2.1-6 libtommath1 -y && \
+    wget https://master.dl.sourceforge.net/project/dgwebminmodule/dgwebmin-stable/0.7/dgwebmin-0.7.1.wbm && \
+    /usr/share/webmin/install-module.pl dgwebmin-0.7.1.wbm && \
+    rm dgwebmin-0.7.1.wbm && \
+## reset root password to webmin ## IMPORTANT TO CHANGE ON FIRST RUN
     echo root:webmin | chpasswd
 
 ADD ./config /config
@@ -29,14 +31,14 @@ RUN wget https://e2guardian.numsys.eu/v5.5.dev/e2debian_buster_V5.5.1_20201116.d
     apt-get -f install && \
     rm e2debian_buster_V5.5.1_20201116.deb && \
     # apt remove patch && \
-    apt purge exim4-* -y && apt autoremove -y && \
+    apt purge exim4-* wget -y && apt autoremove -y && \
     mv /config/starter.sh /usr/bin/ &&\
+    rm -rf /config && \
     sed -i '1idaemon off;' /etc/nginx/nginx.conf && \
     # sed -i 's/-sYC/-sYCNd 1/g' /etc/systemd/system/multi-user.target.wants/squid.service && \
     sed -i 's/SQUID_ARGS="-YC -f $CONFIG"/SQUID_ARGS="-sYCNd 1 -f $CONFIG"/g' /etc/init.d/squid && \
     sed -i 's/squid3/squid/g' /etc/webmin/squid/config && \
-    wget https://master.dl.sourceforge.net/project/dgwebminmodule/dgwebmin-stable/0.7/dgwebmin-0.7.1.wbm && \
-    /usr/share/webmin/install-module.pl dgwebmin-0.7.1.wbm && \
+
     sed -i 's/dansguardian/e2guardian/g' /etc/webmin/dansguardian/config && \
     sed -i 's/sbin/usr\/sbin/g' /etc/webmin/dansguardian/config && \
     ln -s /etc/e2guardian/{e2guardian,dansguardian}.conf && \
