@@ -23,7 +23,7 @@ debuild -us -uc -b
 cd ../
 # apt-get install squid-langpack logrotate libdbi-perl -y
 dpkg -i squid_"${squid_release}"_"${architecture}".deb squid-common_"${squid_release}"_all.deb
-apt-get remove devscripts build-essential fakeroot dpkg-dev
+apt-get remove devscripts build-essential fakeroot dpkg-dev -y
 apt-get autoremove -y
 rm -rf /usr/src/*
 #et voilà, https_port is now enabled and working in squid
