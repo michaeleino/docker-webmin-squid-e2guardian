@@ -38,14 +38,10 @@ RUN wget https://e2guardian.numsys.eu/v5.5.dev/e2debian_buster_V5.5.1_20201116.d
     # sed -i 's/-sYC/-sYCNd 1/g' /etc/systemd/system/multi-user.target.wants/squid.service && \
     sed -i 's/SQUID_ARGS="-YC -f $CONFIG"/SQUID_ARGS="-sYCNd 1 -f $CONFIG"/g' /etc/init.d/squid && \
     sed -i 's/squid3/squid/g' /etc/webmin/squid/config && \
-
     sed -i 's/dansguardian/e2guardian/g' /etc/webmin/dansguardian/config && \
     sed -i 's/sbin/usr\/sbin/g' /etc/webmin/dansguardian/config && \
     ln -s /etc/e2guardian/{e2guardian,dansguardian}.conf && \
-    rm dgwebmin-0.7.1.wbm
-
-#     # mv /config/rs-nginx.conf /etc/nginx/conf.d/ && \
-#     rm -r /config
+    rm -rf /config
 
 VOLUME ["/var/www/html"]
 # VOLUME ["/etc/squid/squid.conf"]
