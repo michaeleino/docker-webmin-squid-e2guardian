@@ -1,6 +1,6 @@
 --- debian/rules.orig	2020-11-18 22:51:39.839185834 +0000
 +++ debian/rules	2020-11-18 23:13:26.274349960 +0000
-@@ -62,7 +62,10 @@
+@@ -62,7 +62,11 @@
  		--with-filedescriptors=65536 \
  		--with-large-files \
  		--with-default-user=proxy \
@@ -9,6 +9,7 @@
 +		--enable-ssl \
 +		--with-openssl \
 +		--enable-security-cert-generators=file
++   --enable-ssl-crtd
 
  ifeq ($(DEB_HOST_ARCH_OS), kfreebsd)
  		DEB_CONFIGURE_EXTRA_FLAGS += --enable-kqueue
