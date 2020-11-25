@@ -47,7 +47,7 @@ RUN DEBIAN_FRONTEND=noninteractive && \
     wget http://www.webmin.com/jcameron-key.asc && \
     apt-key add jcameron-key.asc && rm jcameron-key.asc && \
 ## installing Webmin Squid Nginx
-    apt-get -o Acquire::GzipIndexes=false update && apt-get install patch webmin nginx libevent-core-2.1-6 libevent-pthreads-2.1-6 libtommath1 -y && \
+    apt-get -o Acquire::GzipIndexes=false update && apt-get install supervisor webmin nginx libevent-core-2.1-6 libevent-pthreads-2.1-6 libtommath1 -y && \
     wget https://master.dl.sourceforge.net/project/dgwebminmodule/dgwebmin-stable/0.7/dgwebmin-0.7.1.wbm && \
     /usr/share/webmin/install-module.pl dgwebmin-0.7.1.wbm && \
     rm dgwebmin-0.7.1.wbm && \
@@ -86,4 +86,5 @@ EXPOSE 80
 EXPOSE 3128
 EXPOSE 10000
 
-CMD ["/usr/bin/starter.sh"]
+# CMD ["/usr/bin/starter.sh"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
